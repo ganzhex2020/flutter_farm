@@ -72,22 +72,21 @@ class _HomePageState extends State<HomePage>
                       ),
                     ),
                     SliverGrid(
-
                         delegate: SliverChildBuilderDelegate((context, index) {
-                          return _gridItem(index);/*Container(
+                          return _gridItem(index);
+                          /*Container(
                             margin: EdgeInsets.all(10),
 
                          //   height: 100,
                             alignment: Alignment.center,
                             child: _gridItem(index)//Text(model.list[index]),
-                          ); *///;
+                          ); */ //;
                         }, childCount: model.list.length),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 5,
                             crossAxisSpacing: 5,
-                            childAspectRatio: 1.5
-                        ))
+                            childAspectRatio: 2 / 3))
                   ],
                 ),
                 /**/
@@ -136,11 +135,37 @@ class _HomePageState extends State<HomePage>
   }
 
   _gridItem(int index) {
+    return Card(
+      //  color: Colors.blue, //Card 背景颜色 为了便于识别，设置了红色 child 设置不全部沾满时可呈现
+      //  elevation: 10.0, //传入double值，控制投影效果
 
-    return GestureDetector(
+      child: InkWell(
+          onTap: () {
+            print('Card tapped.');
+          },
+          child: Column(
+            children: <Widget>[
+              CachedNetworkImage(
+                  //   width: 80,
+                  //  width: 150,
+                  height: 80,
+                  imageUrl:
+                      'https://cdn.pixabay.com/photo/2013/10/09/02/26/cattle-192976_1280.jpg',
+                  errorWidget: (context, url, error) =>
+                      Image.asset('images/img_load_fail.png'),
+                  fit: BoxFit.cover),
+              Text('Item $index'),
+              Text('Item $index'),
+              Text('Item $index')
+            ],
+          )),
+    );
+
+    /* return GestureDetector(
       onTap: () {
         print('点击第 $index item');
       },
+
       child: Card(
           color: Colors.blue, //Card 背景颜色 为了便于识别，设置了红色 child 设置不全部沾满时可呈现
           elevation: 10.0, //传入double值，控制投影效果
@@ -187,11 +212,13 @@ class _HomePageState extends State<HomePage>
           )
       ),
 
-    );
+    );*/
   }
 
   _selectBar() {
-    return Row(
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10),
+      child:  Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         GestureDetector(
@@ -234,7 +261,7 @@ class _HomePageState extends State<HomePage>
           ),
         )
       ],
-    );
+    ));
   }
 
   void _recharge() {
